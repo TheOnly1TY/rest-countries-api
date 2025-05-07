@@ -1,3 +1,5 @@
+import { CountriesList } from "./components/CountriesList";
+import { CountryItem } from "./components/CountryItem";
 import { FilterRegion } from "./components/FilterRegion";
 import { Header } from "./components/Header";
 import { SearchField } from "./components/SearchField";
@@ -10,6 +12,7 @@ export default function App() {
         <SearchField />
         <FilterRegion />
       </div>
+      <CountriesList />
     </div>
   );
 }
