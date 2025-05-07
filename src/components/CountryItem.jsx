@@ -1,1 +1,1 @@
-function CountryItem() {}
+export function CountryItem() {}
