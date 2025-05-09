@@ -1,23 +1,16 @@
-import { Link, Outlet } from "react-router-dom";
-import { CountriesList } from "./CountriesList";
-import { FilterRegion } from "./FilterRegion";
-import { Header } from "./Header";
-import { SearchField } from "./SearchField";
+import { Outlet } from "react-router-dom";
+import { Title } from "./Title";
+import { Theme } from "./Theme";
 
 export function MainLayout() {
   return (
     <>
-      <Link to="/country">
-        <button>Go</button>
-      </Link>
-      <div>
-        <Header />
-        <div className="flex-col md:flex-row max-w-[80rem] mx-auto flex justify-between items-start md:items-center px-4 my-8 md:my-10">
-          <SearchField />
-          <FilterRegion />
+      <header className="w-full bg-white shadow-[0_2px_4px_0_rgba(0,0,0,0.0562)]">
+        <div className="max-w-[80rem] mx-auto flex justify-between items-center h-20 px-4">
+          <Title />
+          <Theme />
         </div>
-        <CountriesList />
-      </div>
+      </header>
       <Outlet />
     </>
   );

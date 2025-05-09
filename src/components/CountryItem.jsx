@@ -3,6 +3,7 @@ export function CountryItem({ countryData }) {
   const formattedPopulation = population
     .toString()
     .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  console.log(countryData);
   return (
     <div className="w-[264px] md:w-full h-[336px] bg-white font-display shadow-[0_0_7px_2px_rgba(0,0,0,0.0294)] rounded-[5px]">
       <img
