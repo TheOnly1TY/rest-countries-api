@@ -1,8 +1,18 @@
 import { Outlet } from "react-router-dom";
 import { Title } from "./Title";
 import { Theme } from "./Theme";
+import { useEffect } from "react";
 
 export function MainLayout() {
+  useEffect(() => {
+    async function fetchCountryData() {
+      const res = await fetch("https://restcountries.com/v3.1/all");
+      const data = await res.json();
+
+      console.log(data);
+    }
+    fetchCountryData();
+  }, []);
   return (
     <>
       <header className="w-full bg-white shadow-[0_2px_4px_0_rgba(0,0,0,0.0562)]">

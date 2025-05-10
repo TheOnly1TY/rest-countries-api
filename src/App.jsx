@@ -9,7 +9,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<CountriesList />} />
-          <Route path="country/" element={<CountryDetails />} />
+          <Route path=":id" element={<CountryDetails />} />
         </Route>
       </Routes>
     </BrowserRouter>
