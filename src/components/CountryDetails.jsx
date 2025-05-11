@@ -5,7 +5,7 @@ export function CountryDetails() {
   const handleNavigateBack = () => {
     navigate("/");
   };
-  const data = {
+  const Dummydata = {
     name: "Algeria",
     topLevelDomain: [".dz"],
     alpha2Code: "DZ",
@@ -83,7 +83,7 @@ export function CountryDetails() {
     independent: true,
   };
 
-  const { nativeName, population, region, subregion, capital } = data;
+  const { nativeName, population, region, subregion, capital } = Dummydata;
   return (
     <div className="max-w-[80rem] mx-auto px-4">
       <button
@@ -94,11 +94,11 @@ export function CountryDetails() {
       </button>
       <div className="flex justify-between items-center font-display">
         <figure className="max-w-[560px] h-[401px]">
-          <img src={data.flag} className="rounded-xl" />
+          <img src={Dummydata.flag} className="rounded-xl" />
         </figure>
         <aside className="max-w-[598px]">
           <h1 className="text-[2rem] text-[#111517] font-extrabold">
-            {data.name}
+            {Dummydata.name}
           </h1>
           <div className="grid grid-cols-2 gap-x-32 text-base leading-8 mt-[1.5rem] mb-[2.5rem]">
             <div className="flex flex-col ">

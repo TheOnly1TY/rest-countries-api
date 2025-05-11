@@ -1,17 +1,26 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { MainLayout } from "./components/MainLayout";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { AppLayout } from "./components/AppLayout";
 import { CountriesList } from "./components/CountriesList";
 import { CountryDetails } from "./components/CountryDetails";
+import countriesLoader from "./components/CountriesList";
+
+const router = createBrowserRouter([
+  {
+    element: <AppLayout />,
+    children: [
+      {
+        path: "/",
+        element: <CountriesList />,
+        loader: countriesLoader,
+      },
+      {
+        path: ":cca3",
+        element: <CountryDetails />,
+      },
+    ],
+  },
+]);
 
 export default function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<MainLayout />}>
-          <Route index element={<CountriesList />} />
-          <Route path=":id" element={<CountryDetails />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  );
+  return <RouterProvider router={router} />;
 }
