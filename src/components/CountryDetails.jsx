@@ -92,15 +92,15 @@ export function CountryDetails() {
       >
         <img src="/back-icon.svg" /> Back
       </button>
-      <div className="flex justify-between items-center font-display">
-        <figure className="max-w-[560px] h-[401px]">
+      <div className="flex flex-col md:flex-row md:justify-between items-center font-display gap-10">
+        <figure className="w-full max-w-[560px] md:h-[401px]">
           <img src={Dummydata.flag} className="rounded-xl" />
         </figure>
-        <aside className="max-w-[598px]">
+        <aside className="w-full max-w-[598px] my-12 md:my-0">
           <h1 className="text-[2rem] text-[#111517] font-extrabold">
             {Dummydata.name}
           </h1>
-          <div className="grid grid-cols-2 gap-x-32 text-base leading-8 mt-[1.5rem] mb-[2.5rem]">
+          <div className="grid md:grid-cols-2 gap-x-32 text-base leading-8 mt-[1.5rem] mb-[2.5rem]">
             <div className="flex flex-col ">
               <p className="font-bold">
                 Native Name: <span className="font-light">{nativeName}</span>
@@ -118,23 +118,25 @@ export function CountryDetails() {
                 Capital: <span className="font-light">{capital}</span>
               </p>
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col mt-8 md:mt-0">
               <p className="font-bold">Top Level Domain:</p>
               <p className="font-bold">Currencies:</p>
               <p className="font-bold">Languages:</p>
             </div>
           </div>
-          <div className="flex items-center flex-wrap text-base leading-6 font-bold text-[#111517]  gap-4">
+          <div className="flex items-start md:items-center flex-col md:flex-row flex-wrap text-base leading-6 font-bold text-[#111517]  gap-4">
             Border Countries:
-            <button className="flex  justify-center items-center w-24 h-7 shadow-[0_0_4px_1px_rgba(0,0,0,0.1049)] rounded-xs text-sm font-light text-[#111517]">
-              France
-            </button>
-            <button className="flex justify-center items-center w-24 h-7 shadow-[0_0_4px_1px_rgba(0,0,0,0.1049)] rounded-xs text-sm font-light text-[#111517]">
-              Germany
-            </button>
-            <button className="flex justify-center items-center w-24 h-7 shadow-[0_0_4px_1px_rgba(0,0,0,0.1049)] rounded-xs text-sm font-light text-[#111517]">
-              Netherlands
-            </button>
+            <div className="flex gap-4 flex-wrap">
+              <button className="flex  justify-center items-center w-24 h-7 shadow-[0_0_4px_1px_rgba(0,0,0,0.1049)] rounded-xs text-sm font-light text-[#111517]">
+                France
+              </button>
+              <button className="flex justify-center items-center w-24 h-7 shadow-[0_0_4px_1px_rgba(0,0,0,0.1049)] rounded-xs text-sm font-light text-[#111517]">
+                Germany
+              </button>
+              <button className="flex justify-center items-center w-24 h-7 shadow-[0_0_4px_1px_rgba(0,0,0,0.1049)] rounded-xs text-sm font-light text-[#111517]">
+                Netherlands
+              </button>
+            </div>
           </div>
         </aside>
       </div>
