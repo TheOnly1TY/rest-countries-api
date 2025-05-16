@@ -4,6 +4,7 @@ import { Home } from "./Home";
 import { fetchCountriesData } from "../services/apiFetchCountries";
 export function CountriesList() {
   const CountriesData = useLoaderData();
+
   return (
     <>
       <Home />

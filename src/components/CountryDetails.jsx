@@ -1,4 +1,5 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useNavigation } from "react-router-dom";
+import Loader from "./loader";
 
 export function CountryDetails() {
   const navigate = useNavigate();
@@ -82,8 +83,14 @@ export function CountryDetails() {
     cioc: "ALG",
     independent: true,
   };
+  const navigation = useNavigation();
 
+  const isLoading = navigation.state === "loading";
   const { nativeName, population, region, subregion, capital } = Dummydata;
+  {
+    isLoading && <Loader />;
+  }
+
   return (
     <div className="max-w-[80rem] mx-auto px-4">
       <button
