@@ -1,95 +1,46 @@
-import { useNavigate, useNavigation } from "react-router-dom";
+import { useLoaderData, useNavigate, useNavigation } from "react-router-dom";
 import Loader from "./loader";
+import { formatNumber } from "../utils/helpers";
+import { Border } from "./Border";
 
 export function CountryDetails() {
   const navigate = useNavigate();
   const handleNavigateBack = () => {
     navigate("/");
   };
-  const Dummydata = {
-    name: "Algeria",
-    topLevelDomain: [".dz"],
-    alpha2Code: "DZ",
-    alpha3Code: "DZA",
-    callingCodes: ["213"],
-    capital: "Algiers",
-    altSpellings: ["DZ", "Dzayer", "Algérie"],
-    subregion: "Northern Africa",
-    region: "Africa",
-    population: 44700000,
-    latlng: [28, 3],
-    demonym: "Algerian",
-    area: 2381741,
-    gini: 27.6,
-    timezones: ["UTC+01:00"],
-    borders: ["TUN", "LBY", "NER", "ESH", "MRT", "MLI", "MAR"],
-    nativeName: "الجزائر",
-    numericCode: "012",
-    flags: {
-      svg: "https://flagcdn.com/dz.svg",
-      png: "https://flagcdn.com/w320/dz.png",
-    },
-    currencies: [
-      {
-        code: "DZD",
-        name: "Algerian dinar",
-        symbol: "د.ج",
-      },
-    ],
-    languages: [
-      {
-        iso639_1: "ar",
-        iso639_2: "ara",
-        name: "Arabic",
-        nativeName: "العربية",
-      },
-    ],
-    translations: {
-      br: "Aljeria",
-      pt: "Argélia",
-      nl: "Algerije",
-      hr: "Alžir",
-      fa: "الجزایر",
-      de: "Algerien",
-      es: "Argelia",
-      fr: "Algérie",
-      ja: "アルジェリア",
-      it: "Algeria",
-      hu: "Algéria",
-    },
-    flag: "https://flagcdn.com/dz.svg",
-    regionalBlocs: [
-      {
-        acronym: "AU",
-        name: "African Union",
-        otherNames: [
-          "الاتحاد الأفريقي",
-          "Union africaine",
-          "União Africana",
-          "Unión Africana",
-          "Umoja wa Afrika",
-        ],
-      },
-      {
-        acronym: "AL",
-        name: "Arab League",
-        otherNames: [
-          "جامعة الدول العربية",
-          "Jāmiʻat ad-Duwal al-ʻArabīyah",
-          "League of Arab States",
-        ],
-      },
-    ],
-    cioc: "ALG",
-    independent: true,
-  };
   const navigation = useNavigation();
+  const countryData = useLoaderData();
+  console.log(countryData);
+  const {
+    name,
+    flags,
+    region,
+    population,
+    subregion,
+    tld,
+    capital,
+    languages,
+    currencies,
+    borders,
+  } = countryData[0];
+  const formattedCurrencies = Object.values(currencies)[0].name;
+  const formattedLanguage = Object.values(languages).join(", ");
+  const displayName = name?.common || name?.official;
+  const formattedNaiveName = Object.values(name.nativeName)[0].common;
 
+  const details = [
+    { name: "Native Name", data: formattedNaiveName },
+    { name: "Population", data: formatNumber(population) },
+    { name: "Region", data: region },
+    { name: "Sub Region", data: subregion },
+    { name: "Capital", data: capital.join(", ") },
+    { name: "Top Level Domain", data: tld.join(", ") },
+    { name: "Currencies", data: formattedCurrencies },
+    { name: "Languages", data: formattedLanguage },
+  ];
   const isLoading = navigation.state === "loading";
-  const { nativeName, population, region, subregion, capital } = Dummydata;
-  {
-    isLoading && <Loader />;
-  }
+
+  if (isLoading) return <Loader />;
 
   return (
     <div className="max-w-[80rem] mx-auto px-4">
@@ -99,52 +50,34 @@ export function CountryDetails() {
       >
         <img src="/back-icon.svg" /> Back
       </button>
-      <div className="flex flex-col md:flex-row md:justify-between items-center font-display gap-10">
-        <figure className="w-full max-w-[560px] md:h-[401px]">
-          <img src={Dummydata.flag} className="rounded-xl" />
+
+      <div className="flex flex-col md:flex-row md:justify-between items-center font-display gap-10 mb-20">
+        <figure className="w-full max-w-[560px]">
+          <img src={flags.svg} className="rounded-xl" alt={flags.svg} />
         </figure>
         <aside className="w-full max-w-[598px] my-12 md:my-0">
           <h1 className="text-[2rem] text-[#111517] font-extrabold">
-            {Dummydata.name}
+            {displayName}
           </h1>
           <div className="grid md:grid-cols-2 gap-x-32 text-base leading-8 mt-[1.5rem] mb-[2.5rem]">
             <div className="flex flex-col ">
-              <p className="font-bold">
-                Native Name: <span className="font-light">{nativeName}</span>
-              </p>
-              <p className="font-bold">
-                Population: <span className="font-light">{population}</span>
-              </p>
-              <p className="font-bold">
-                Region: <span className="font-light">{region}</span>
-              </p>
-              <p className="font-bold">
-                Sub Region: <span className="font-light">{subregion}</span>
-              </p>
-              <p className="font-bold">
-                Capital: <span className="font-light">{capital}</span>
-              </p>
+              {details.slice(0, 5).map((detail) => (
+                <p key={detail.data} className="font-bold">
+                  {detail.name}:{" "}
+                  <span className="font-light">{detail.data}</span>
+                </p>
+              ))}
             </div>
             <div className="flex flex-col mt-8 md:mt-0">
-              <p className="font-bold">Top Level Domain:</p>
-              <p className="font-bold">Currencies:</p>
-              <p className="font-bold">Languages:</p>
+              {details.slice(5).map((detail) => (
+                <p key={detail.data} className="font-bold">
+                  {detail.name}:{" "}
+                  <span className="font-light">{detail.data}</span>
+                </p>
+              ))}
             </div>
           </div>
-          <div className="flex items-start md:items-center flex-col md:flex-row flex-wrap text-base leading-6 font-bold text-[#111517]  gap-4">
-            Border Countries:
-            <div className="flex gap-4 flex-wrap">
-              <button className="flex  justify-center items-center w-24 h-7 shadow-[0_0_4px_1px_rgba(0,0,0,0.1049)] rounded-xs text-sm font-light text-[#111517]">
-                France
-              </button>
-              <button className="flex justify-center items-center w-24 h-7 shadow-[0_0_4px_1px_rgba(0,0,0,0.1049)] rounded-xs text-sm font-light text-[#111517]">
-                Germany
-              </button>
-              <button className="flex justify-center items-center w-24 h-7 shadow-[0_0_4px_1px_rgba(0,0,0,0.1049)] rounded-xs text-sm font-light text-[#111517]">
-                Netherlands
-              </button>
-            </div>
-          </div>
+          <Border borders={borders} />
         </aside>
       </div>
     </div>

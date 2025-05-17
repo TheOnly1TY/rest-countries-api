@@ -3,6 +3,7 @@ import { AppLayout } from "./components/AppLayout";
 import { CountriesList } from "./components/CountriesList";
 import { CountryDetails } from "./components/CountryDetails";
 import countriesLoader from "./components/CountriesList";
+import countryLoader from "./components/CountryItem";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,7 @@ const router = createBrowserRouter([
       {
         path: ":cca3",
         element: <CountryDetails />,
+        loader: countryLoader,
       },
     ],
   },

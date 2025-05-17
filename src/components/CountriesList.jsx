@@ -1,7 +1,7 @@
 import { useLoaderData } from "react-router-dom";
 import { CountryItem } from "./CountryItem";
 import { Home } from "./Home";
-import { fetchCountriesData } from "../services/apiFetchCountries";
+import { fetchAllCountries } from "../services/apiFetchCountries";
 export function CountriesList() {
   const CountriesData = useLoaderData();
 
@@ -17,5 +17,5 @@ export function CountriesList() {
   );
 }
 export default async function countriesLoader() {
-  return await fetchCountriesData();
+  return await fetchAllCountries();
 }
