@@ -1,4 +1,6 @@
-export function Theme() {
+import { memo } from "react";
+
+export const Theme = memo(() => {
   return (
     <div className="flex justify-center items-center gap-1">
       <img src="/sun.svg" alt="mode_icon" />
@@ -7,4 +9,4 @@ export function Theme() {
       </p>
     </div>
   );
-}
+});

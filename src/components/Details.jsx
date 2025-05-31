@@ -3,14 +3,14 @@ import Loader from "./loader";
 import { formatNumber } from "../utils/helpers";
 import { Border } from "./Border";
 
-export function CountryDetails() {
+export function Details() {
   const navigate = useNavigate();
   const handleNavigateBack = () => {
     navigate("/");
   };
   const navigation = useNavigation();
+  console.log(navigation);
   const countryData = useLoaderData();
-  console.log(countryData);
   const {
     name,
     flags,
