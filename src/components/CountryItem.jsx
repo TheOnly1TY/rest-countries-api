@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { fetchCountryByCCaCode } from "../services/apiFetchCountries";
 import { formatNumber } from "../utils/helpers";
 
 export function CountryItem({ countryData }) {
@@ -33,10 +32,4 @@ export function CountryItem({ countryData }) {
       </Link>
     </li>
   );
-}
-
-// loader function
-export default async function countryLoader({ params }) {
-  const { cca3 } = params;
-  return await fetchCountryByCCaCode(cca3);
 }

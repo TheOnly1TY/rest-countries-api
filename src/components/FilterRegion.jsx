@@ -5,10 +5,10 @@ export function FilterRegion() {
 
   const handleRegionChange = (e) => {
     const continent = e.target.value;
-    console.log(continent);
-
     dispatch({ type: "COUNTRIES/REGION", payload: continent });
+    dispatch({ type: "COUNTRIES/ERROR", payload: false });
   };
+
   return (
     <select
       value={region}

@@ -2,49 +2,54 @@ import { createContext, useContext, useEffect, useReducer } from "react";
 
 const CountriesContext = createContext();
 
+const BASE_URL = "https://restcountries.com/v3.1";
+
 function CountriesProvider({ children }) {
   const initialState = {
     countriesData: [],
+    countryDetails: [],
     query: "",
     region: "all",
-    errMessage: "default",
     isLoading: false,
     error: false,
-    apiURL: "https://restcountries.com/v3.1/all",
+    apiURL: `${BASE_URL}/all`,
   };
 
   function reducer(state, action) {
     switch (action.type) {
       case "SET_COUNTRIES":
         return { ...state, countriesData: action.payload };
+
       case "COUNTRIES/LOADING":
         return { ...state, isLoading: action.payload };
+
       case "COUNTRIES/SEARCH":
         return {
           ...state,
           query: action.payload,
         };
+
       case "COUNTRIES/REGION":
         if (action.payload === "all") {
           return {
             ...state,
             region: action.payload,
-            apiURL: "https://restcountries.com/v3.1/all",
+            apiURL: `${BASE_URL}/all`,
           };
         }
         return {
           ...state,
           region: action.payload,
-          apiURL: `https://restcountries.com/v3.1/region/${action.payload}`,
+          apiURL: `${BASE_URL}/region/${action.payload}`,
         };
 
+      case "SET_COUNTRIES/DETAILS":
+        return { ...state, countryDetails: action.payload };
+
       case "COUNTRIES/ERROR":
-        if (state.region !== "all")
-          return { ...state, error: action.payload, errMessage: "continent" };
         return {
           ...state,
           error: action.payload,
-          errMessage: "default",
         };
 
       default:
@@ -52,25 +57,23 @@ function CountriesProvider({ children }) {
     }
   }
   const [
-    { countriesData, query, region, isLoading, apiURL, error, errMessage },
+    { countriesData, query, region, isLoading, apiURL, error, countryDetails },
     dispatch,
   ] = useReducer(reducer, initialState);
+
   useEffect(() => {
     async function fetchCountries() {
       try {
         dispatch({ type: "COUNTRIES/LOADING", payload: true });
-        dispatch({ type: "COUNTRIES/ERROR", payload: false });
-
         const res = await fetch(apiURL);
         if (!res.ok) throw new Error("Failed to fetch Countries Data");
-
         const data = await res.json();
 
         if (data.length === 0) {
           dispatch({ type: "COUNTRIES/ERROR", payload: true });
         } else if (query) {
-          const newData = data.filter((c) =>
-            c.name.common.toLowerCase().includes(query.toLowerCase())
+          const newData = data.filter((data) =>
+            data.name.common.toLowerCase().includes(query.toLowerCase())
           );
           if (newData.length === 0)
             dispatch({ type: "COUNTRIES/ERROR", payload: true });
@@ -93,12 +96,12 @@ function CountriesProvider({ children }) {
     <CountriesContext.Provider
       value={{
         countriesData,
+        countryDetails,
         query,
         region,
         isLoading,
         error,
         dispatch,
-        errMessage,
       }}
     >
       {children}

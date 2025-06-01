@@ -1,16 +1,38 @@
-import { useLoaderData, useNavigate, useNavigation } from "react-router-dom";
-import Loader from "./loader";
+import { useNavigate, useParams } from "react-router-dom";
 import { formatNumber } from "../utils/helpers";
 import { Border } from "./Border";
+import { useEffect } from "react";
+import { useCountry } from "../context/countriesContext";
+import Loader from "./loader";
 
-export function Details() {
+export function CountryDetails() {
+  const { dispatch, countryDetails } = useCountry();
+  const { cca3 } = useParams();
+
+  useEffect(() => {
+    async function fetchCountryByCCaCode() {
+      try {
+        dispatch({ type: "COUNTRIES/LOADING", payload: true });
+        const res = await fetch(`https://restcountries.com/v3.1/alpha/${cca3}`);
+        if (!res.ok) throw new Error("Failed to fetch Countries Data");
+        const data = await res.json();
+        dispatch({ type: "SET_COUNTRIES/DETAILS", payload: data });
+      } catch (error) {
+        console.error(error.message);
+      } finally {
+        dispatch({ type: "COUNTRIES/LOADING", payload: false });
+      }
+    }
+    fetchCountryByCCaCode();
+  }, [cca3, dispatch]);
+
   const navigate = useNavigate();
   const handleNavigateBack = () => {
-    navigate("/");
+    navigate(-1);
+    dispatch({ type: "SET_COUNTRIES/DETAILS", payload: [] });
   };
-  const navigation = useNavigation();
-  console.log(navigation);
-  const countryData = useLoaderData();
+
+  if (countryDetails.length === 0) return <Loader />;
   const {
     name,
     flags,
@@ -22,7 +44,7 @@ export function Details() {
     languages,
     currencies,
     borders,
-  } = countryData[0];
+  } = countryDetails[0];
   const formattedCurrencies = Object.values(currencies)[0].name;
   const formattedLanguage = Object.values(languages).join(", ");
   const displayName = name?.common || name?.official;
@@ -38,9 +60,6 @@ export function Details() {
     { name: "Currencies", data: formattedCurrencies },
     { name: "Languages", data: formattedLanguage },
   ];
-  const isLoading = navigation.state === "loading";
-
-  if (isLoading) return <Loader />;
 
   return (
     <div className="max-w-[80rem] mx-auto px-4">

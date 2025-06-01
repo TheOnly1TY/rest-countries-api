@@ -2,12 +2,13 @@ import { useCountry } from "../context/countriesContext";
 
 export function SearchField() {
   const { query, dispatch } = useCountry();
+
   const handleQuerySearch = (e) => {
     e.preventDefault();
-
     dispatch({ type: "COUNTRIES/ERROR", payload: false });
     dispatch({ type: "COUNTRIES/SEARCH", payload: e.target.value });
   };
+
   return (
     <div className="relative w-full">
       <input

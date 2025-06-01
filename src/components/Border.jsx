@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export function Border({ borders }) {
   const [borderNames, setBorderNames] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [borderLoading, setBorderLoading] = useState(false);
 
   useEffect(() => {
     if (!borders || borders.length === 0) {
@@ -12,7 +12,7 @@ export function Border({ borders }) {
     }
 
     async function fetchBorderNames() {
-      setIsLoading(true);
+      setBorderLoading(true);
       try {
         const codes = borders.join(",");
         const res = await fetch(
@@ -31,7 +31,7 @@ export function Border({ borders }) {
         console.error(error.message);
         setBorderNames([]);
       } finally {
-        setIsLoading(false);
+        setBorderLoading(false);
       }
     }
 
@@ -43,7 +43,7 @@ export function Border({ borders }) {
   return (
     <div className="flex items-start md:items-center flex-col md:flex-row flex-wrap text-base leading-6 font-bold text-[#111517] gap-4">
       Border Countries:
-      {isLoading ? (
+      {borderLoading ? (
         <p className="font-light">Loading Borders...</p>
       ) : (
         <div className="flex gap-4 flex-wrap">
