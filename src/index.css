@@ -8,6 +8,7 @@
 
 body {
   @apply bg-[#fafafa] dark:bg-[#202c36];
+  transition: all 0.05s ease;
 }
 
 .animate-loader {

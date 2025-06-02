@@ -119,4 +119,4 @@ function useCountry() {
   return context;
 }
 
-export { CountriesProvider, useCountry };
+export { CountriesProvider, useCountry, BASE_URL };

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { BASE_URL } from "../context/countriesContext";
 
 export function Border({ borders }) {
   const [borderNames, setBorderNames] = useState([]);
@@ -15,9 +16,7 @@ export function Border({ borders }) {
       setBorderLoading(true);
       try {
         const codes = borders.join(",");
-        const res = await fetch(
-          `https://restcountries.com/v3.1/alpha?codes=${codes}`
-        );
+        const res = await fetch(`${BASE_URL}/alpha?codes=${codes}`);
         if (!res.ok) throw new Error("Failed to fetch countries data");
         const data = await res.json();
 
@@ -41,7 +40,7 @@ export function Border({ borders }) {
   if (!borders || borders.length === 0) return;
 
   return (
-    <div className="flex items-start md:items-center flex-col md:flex-row flex-wrap text-base leading-6 font-bold text-[#111517] gap-4">
+    <div className="flex items-start md:items-center flex-col md:flex-row flex-wrap text-base leading-6 font-bold text-[#111517] dark:text-white gap-4">
       Border Countries:
       {borderLoading ? (
         <p className="font-light">Loading Borders...</p>
@@ -51,7 +50,7 @@ export function Border({ borders }) {
             <button key={border.code}>
               <Link
                 to={`/${border.code}`}
-                className="flex justify-center items-center min-w-24 min-h-7 p-1 shadow-[0_0_4px_1px_rgba(0,0,0,0.1049)] rounded-xs text-sm font-light text-[#111517]"
+                className="flex justify-center items-center min-w-24 min-h-7 p-1 shadow-[0_0_4px_1px_rgba(0,0,0,0.1049)] dark:bg-[#2B3844] rounded-xs text-sm font-light text-[#111517] dark:text-white"
               >
                 {border.name}
               </Link>
