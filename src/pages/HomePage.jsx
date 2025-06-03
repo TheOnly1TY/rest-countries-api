@@ -2,8 +2,8 @@ import { Outlet } from "react-router-dom";
 import { CountriesList } from "../components/CountriesList";
 import { CountryControls } from "../components/CountryControls";
 import { Error } from "../components/Error";
-import Loader from "../components/loader";
 import { useCountry } from "../context/countriesContext";
+import { Loader } from "../components/loader";
 
 export function HomePage() {
   const { isLoading, error } = useCountry();
