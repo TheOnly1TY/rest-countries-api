@@ -3,8 +3,8 @@ import { formatNumber } from "../utils/helpers";
 import { Border } from "./Border";
 import { useEffect } from "react";
 import { useCountry } from "../context/countriesContext";
-import Loader from "./loader";
 import { useTheme } from "../context/themeContext";
+import { Loader } from "./loader";
 
 export function CountryDetails() {
   const { dispatch, countryDetails } = useCountry();

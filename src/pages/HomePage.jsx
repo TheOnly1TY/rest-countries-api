@@ -3,7 +3,7 @@ import { CountriesList } from "../components/CountriesList";
 import { CountryControls } from "../components/CountryControls";
 import { Error } from "../components/Error";
 import { useCountry } from "../context/countriesContext";
-import { Loader } from "../components/loader";
+import { Loader } from "../components/Loader";
 
 export function HomePage() {
   const { isLoading, error } = useCountry();
