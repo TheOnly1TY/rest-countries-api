@@ -4,7 +4,7 @@ import { Border } from "./Border";
 import { useEffect } from "react";
 import { useCountry } from "../context/countriesContext";
 import { useTheme } from "../context/themeContext";
-import { Loader } from "./loader";
+import { Loader } from "./Loader";
 
 export function CountryDetails() {
   const { dispatch, countryDetails } = useCountry();
